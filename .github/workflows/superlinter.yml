@@ -16,10 +16,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Visual Studio
+        uses: actions/setup-msbuild@v1.0.2 
+        with:
+          vs-version: '2022'
+
       - name: Build SW
         run: |
           # Використовуємо MSVC для компіляції
-          cl /EHsc /Fe:SW_Task2\x64\Debug\SW_Task2.exe SW_Task2\*.cpp
+          msbuild SW_Task2\SW_Task2\SW_Task2.vcxproj /p:Configuration=Debug
 
       - name: Run SW
         run: |
