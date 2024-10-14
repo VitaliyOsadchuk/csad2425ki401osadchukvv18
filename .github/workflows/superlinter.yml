@@ -23,11 +23,11 @@ jobs:
 
       - name: Build SW
         run: |
-          g++ -o SW_Task2/SW_Task2 SW_Task2/*.cpp  # Збірка проекту
+          g++ -o SW_Task2/SW_Task2 SW_Task2/client.cpp  
 
       - name: Run SW
         run: |
-          ./SW_Task2/SW_Task2 > SW_Task2/output.txt  # Зберігаємо вивід у файл
+          ./SW_Task2/SW_Task2 > SW_Task2/output.txt  
 
       - name: Check message length
         run: |
