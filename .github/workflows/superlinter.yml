@@ -11,34 +11,33 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Install g++
         run: |
-          sudo apt update
-          sudo apt install -y g++
+          choco install mingw -y  # Встановлення g++ за допомогою Chocolatey
 
       - name: Build SW
         run: |
-          g++ -o SW_Task2/SW_Task2/SW_Task2 SW_Task2/SW_Task2/client.cpp  # Збірка проекту
+          g++ -o SW_Task2\SW_Task2.exe SW_Task2\SW_Task2\client.cpp  # Збірка проекту
 
       - name: Run SW
         run: |
-          ./SW_Task2/SW_Task2/SW_Task2 > SW_Task2/output.txt  # Зберігаємо вивід у файл
+          .\SW_Task2\SW_Task2.exe > SW_Task2\output.txt  # Зберігаємо вивід у файл
 
       - name: Check message length
         run: |
-          message=$(grep "message:" SW_Task2/output.txt)
-          echo "Message: $message"
-          if [ -z "$message" ]; then
-            echo "Message length is 0!"
+          $message = Get-Content SW_Task2\output.txt | Select-String "message:"
+          Write-Host "Message: $message"
+          if (-not $message) {
+            Write-Host "Message length is 0!"
             exit 1
-          else
-            echo "Test passed: Message length is greater than 0!"
-          fi
+          } else {
+            Write-Host "Test passed: Message length is greater than 0!"
+          }
 
       - name: Create artifacts
         if: success()
@@ -46,5 +45,5 @@ jobs:
         with:
           name: binaries-and-reports
           path: |
-            SW_Task2/SW_Task2/SW_Task2
-            SW_Task2/output.txt
+            SW_Task2\SW_Task2.exe
+            SW_Task2\output.txt
