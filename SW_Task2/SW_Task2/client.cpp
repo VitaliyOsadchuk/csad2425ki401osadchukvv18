@@ -1,7 +1,25 @@
 #include <iostream>
 #include <windows.h>
+#include <cstring>
+
+
+bool checkMessageLength(const char* message) {
+    return message && strlen(message) > 0;
+}
 
 int main() {
+    const char* message = "Message from SW side\n"; // Message to send
+
+#ifdef CHECK_MESSAGE_ONLY
+    // check message length
+    if (!checkMessageLength(message)) {
+        std::cerr << "Message length is 0!" << std::endl;
+        return 1; // Помилка
+    }
+    std::cout << "Test passed: Message length is greater than 0!" << std::endl;
+    return 0; 
+#endif
+
     // Open the serial port
     HANDLE hSerial = CreateFile(L"COM3",
         GENERIC_READ | GENERIC_WRITE,
@@ -52,7 +70,6 @@ int main() {
     }
 
     // Send a message to the Arduino
-    const char* message = "Message from SW side\n";
     DWORD bytesWritten;
     if (!WriteFile(hSerial, message, strlen(message), &bytesWritten, NULL)) {
         std::cerr << "Error writing to serial port." << std::endl;
