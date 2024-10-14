@@ -1,0 +1,54 @@
+name: Test Hardware Communication
+
+on:
+  push:
+    branches:
+      - feature/develop/task2  # Тестування при пуші в цю гілку
+  pull_request:
+    branches:
+      - develop                 # Тестування при PR до develop
+      - feature/develop/task2   # Тестування при PR з task2
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up CMake
+        uses: jwlawson/actions-setup-cmake@v1
+        with:
+          cmake-version: '3.20.0'
+
+      - name: Build SW
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build . --config Release
+
+      - name: Run SW
+        run: |
+          cd build
+          ./SW_Task2.exe > output.txt  
+
+      - name: Check HW response
+        run: |
+          response=$(findstr /C:"Received message:" output.txt)
+          echo "Response: $response"
+          if [ -z "$response" ]; then
+            echo "No valid response from HW!"
+            exit 1
+          else
+            echo "Test passed: Valid response received!"
+          fi
+
+      - name: Create artifacts
+        if: success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: binaries-and-reports
+          path: |
+            build/SW_Task2.exe
+            output.txt
