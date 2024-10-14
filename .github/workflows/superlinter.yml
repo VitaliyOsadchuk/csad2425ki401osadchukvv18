@@ -22,7 +22,7 @@ jobs:
 
       - name: Build SW
         run: |
-          g++ -o SW_Task2\SW_Task2.exe SW_Task2\SW_Task2\client.cpp  # Збірка проекту
+          g++ -o SW_Task2\SW_Task2.exe SW_Task2\SW_Task2\client.cpp -DUNICODE -D_UNICODE  # Додавання флагів для підтримки Unicode
 
       - name: Run SW
         run: |
