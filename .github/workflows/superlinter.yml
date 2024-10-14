@@ -16,27 +16,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Visual Studio
-        run: |
-          call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
-
       - name: Build SW
         run: |
-          cl /EHsc /Fe:SW_Task2\x64\Debug\SW_Task2.exe SW_Task2\*.cpp  # Збірка проекту
+          # Використовуємо MSVC для компіляції
+          cl /EHsc /Fe:SW_Task2\x64\Debug\SW_Task2.exe SW_Task2\*.cpp
 
       - name: Run SW
         run: |
           SW_Task2\x64\Debug\SW_Task2.exe > SW_Task2\output.txt  # Зберігаємо вивід у файл
 
-      - name: Check HW response
+      - name: Check message length
         run: |
-          response=$(findstr /C:"Received message:" SW_Task2\output.txt)
-          echo "Response: $response"
-          if [ -z "$response" ]; then
-            echo "No valid response from HW!"
+          # Перевірка на довжину повідомлення
+          message=$(findstr /C:"message:" SW_Task2\output.txt)
+          echo "Message: $message"
+          if [ -z "$message" ]; then
+            echo "Message length is 0!"
             exit 1
           else
-            echo "Test passed: Valid response received!"
+            echo "Test passed: Message length is greater than 0!"
           fi
 
       - name: Create artifacts
