@@ -3,37 +3,35 @@ name: Test Communication
 on:
   push:
     branches:
-      - feature/develop/task2  # Тестування при пуші в цю гілку
+      - feature/develop/task2  
   pull_request:
     branches:
-      - develop                 # Тестування при PR до develop
-      - feature/develop/task2   # Тестування при PR з task2
+      - develop                 
+      - feature/develop/task2   
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Visual Studio
-        uses: actions/setup-msbuild@v1.0.2 
-        with:
-          vs-version: '2022'
+      - name: Install g++
+        run: |
+          sudo apt update
+          sudo apt install -y g++
 
       - name: Build SW
         run: |
-          # Використовуємо MSVC для компіляції
-          msbuild SW_Task2\SW_Task2\SW_Task2.vcxproj /p:Configuration=Debug
+          g++ -o SW_Task2/SW_Task2 SW_Task2/*.cpp  # Збірка проекту
 
       - name: Run SW
         run: |
-          SW_Task2\x64\Debug\SW_Task2.exe > SW_Task2\output.txt  # Зберігаємо вивід у файл
+          ./SW_Task2/SW_Task2 > SW_Task2/output.txt  # Зберігаємо вивід у файл
 
       - name: Check message length
         run: |
-          # Перевірка на довжину повідомлення
-          message=$(findstr /C:"message:" SW_Task2\output.txt)
+          message=$(grep "message:" SW_Task2/output.txt)
           echo "Message: $message"
           if [ -z "$message" ]; then
             echo "Message length is 0!"
@@ -48,5 +46,5 @@ jobs:
         with:
           name: binaries-and-reports
           path: |
-            SW_Task2\x64\Debug\SW_Task2.exe
-            SW_Task2\output.txt
+            SW_Task2/SW_Task2
+            SW_Task2/output.txt
