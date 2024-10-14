@@ -1,4 +1,4 @@
-name: Test Hardware Communication
+name: Test Communication
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
       - name: Run SW
         run: |
           cd build
-          ./SW_Task2.exe > output.txt  
+          ./SW_Task2.exe > output.txt  # Зберігаємо вивід у файл
 
       - name: Check HW response
         run: |
@@ -46,7 +46,7 @@ jobs:
 
       - name: Create artifacts
         if: success()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3  # Оновлена версія
         with:
           name: binaries-and-reports
           path: |
