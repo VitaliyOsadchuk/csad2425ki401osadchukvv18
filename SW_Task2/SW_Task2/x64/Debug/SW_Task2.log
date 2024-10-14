@@ -1,0 +1,3 @@
+﻿  client.cpp
+C:\Users\MSI\Desktop\task2\SW_Task2\SW_Task2\client.cpp(57,44): warning C4267: 'argument': conversion from 'size_t' to 'DWORD', possible loss of data
+  SW_Task2.vcxproj -> C:\Users\MSI\Desktop\task2\SW_Task2\x64\Debug\SW_Task2.exe
