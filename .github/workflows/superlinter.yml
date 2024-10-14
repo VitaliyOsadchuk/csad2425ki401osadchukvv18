@@ -3,11 +3,11 @@ name: Test Communication
 on:
   push:
     branches:
-      - feature/develop/task2  
+      - feature/develop/task2  # Тестування при пуші в цю гілку
   pull_request:
     branches:
-      - develop                
-      - feature/develop/task2  
+      - develop                 # Тестування при PR до develop
+      - feature/develop/task2   # Тестування при PR з task2
 
 jobs:
   build:
@@ -15,6 +15,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set up Visual Studio
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
 
       - name: Build SW
         run: |
