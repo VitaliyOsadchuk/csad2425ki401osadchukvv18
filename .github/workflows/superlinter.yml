@@ -3,11 +3,11 @@ name: Test Communication
 on:
   push:
     branches:
-      - feature/develop/task2  # Тестування при пуші в цю гілку
+      - feature/develop/task2  
   pull_request:
     branches:
-      - develop                 # Тестування при PR до develop
-      - feature/develop/task2   # Тестування при PR з task2
+      - develop                
+      - feature/develop/task2  
 
 jobs:
   build:
@@ -16,26 +16,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up CMake
-        uses: jwlawson/actions-setup-cmake@v1
-        with:
-          cmake-version: '3.20.0'
-
       - name: Build SW
         run: |
-          mkdir build
-          cd build
-          cmake ..
-          cmake --build . --config Release
+          cl /EHsc /Fe:SW_Task2\x64\Debug\SW_Task2.exe SW_Task2\*.cpp  # Збірка проекту
 
       - name: Run SW
         run: |
-          cd build
-          ./SW_Task2.exe > output.txt  # Зберігаємо вивід у файл
+          SW_Task2\x64\Debug\SW_Task2.exe > SW_Task2\output.txt  # Зберігаємо вивід у файл
 
       - name: Check HW response
         run: |
-          response=$(findstr /C:"Received message:" output.txt)
+          response=$(findstr /C:"Received message:" SW_Task2\output.txt)
           echo "Response: $response"
           if [ -z "$response" ]; then
             echo "No valid response from HW!"
@@ -46,9 +37,9 @@ jobs:
 
       - name: Create artifacts
         if: success()
-        uses: actions/upload-artifact@v3  # Оновлена версія
+        uses: actions/upload-artifact@v3
         with:
           name: binaries-and-reports
           path: |
-            build/SW_Task2.exe
-            output.txt
+            SW_Task2\x64\Debug\SW_Task2.exe
+            SW_Task2\output.txt
