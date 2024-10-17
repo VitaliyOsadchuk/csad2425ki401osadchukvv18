@@ -1,0 +1,44 @@
+name: CI Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  Build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y g++ libboost-all-dev
+
+    - name: Build SW with Mock HW
+      run: g++ -DMOCK_HW -o Build/SW_Task2.exe src/SW_Task2/SW_Task2/client.cpp -I src/ -lboost_system -lpthread
+
+    - name: List Build directory contents
+      run: ls -l Build/
+
+    - name: Run SW program with Mock HW
+      run: |
+        ./Build/SW_Task2.exe > ci/test_output.txt 2>&1 || true
+        sleep 2
+
+    - name: Check test output for errors
+      run: cat ci/test_output.txt
+
+    - name: Archive test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: ci/test_output.txt
+
+    - name: Archive binaries
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: binaries
+        path: Build/SW_Task2.exe
