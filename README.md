@@ -21,11 +21,9 @@ Currently this repository contains the code and documentation for Task 1 and Tas
 - Framework/Technology: RayLib - for game interface
 - Hardware: Arduino MEGA2560 WiFi R3 Wemos(with built-in ESP8266)
 
-----------Task2----------
-
-## Update:
+##----------Task2----------
 - created simple HW - SW comunication schema via UART;
 - created yml file;
-- added reports for task1, task2;
+- added lab report for task1;
 - updated readme;
-- added .yml with test.
+- created communication mock test;

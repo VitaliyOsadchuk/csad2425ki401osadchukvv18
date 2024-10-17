@@ -1,0 +1,10 @@
+﻿  pch.cpp
+  test.cpp
+D:\git2\csad2425ki401osadchukvv18\tests\test_serial_communication\test_serial_communication\test.cpp(1,9): warning C4603: '_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING': macro is not defined or definition is different after precompiled header use
+  (compiling source file '/test.cpp')
+      D:\git2\csad2425ki401osadchukvv18\tests\test_serial_communication\test_serial_communication\test.cpp(1,9):
+      Add macro to precompiled header instead of defining here
+      D:\git2\csad2425ki401osadchukvv18\tests\test_serial_communication\test_serial_communication\test.cpp(3,1):
+      use of precompiled header
+  
+  test_serial_communication.vcxproj -> D:\git2\csad2425ki401osadchukvv18\tests\test_serial_communication\x64\Debug\test_serial_communication.exe
