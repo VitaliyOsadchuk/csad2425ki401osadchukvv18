@@ -9,6 +9,12 @@
 int main() {
     const char* message = "Message from SW side\n"; // Message to send
 
+    if (strlen(message) == 0) {                     //Check if client message is empty
+        std::cerr << "Error: no client message to send!" << std::endl;
+        std::cerr << "Exiting program." << std::endl;
+        return 1;                                   //exit if message is empty
+    }
+
 #ifdef MOCK_HW
     HwMock hw;
     hw.begin(115200);

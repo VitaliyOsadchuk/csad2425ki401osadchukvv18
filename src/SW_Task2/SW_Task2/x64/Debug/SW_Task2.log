@@ -1,3 +1,4 @@
 ﻿  client.cpp
-D:\git2\csad2425ki401osadchukvv18\src\SW_Task2\SW_Task2\client.cpp(65,44): warning C4267: 'argument': conversion from 'size_t' to 'DWORD', possible loss of data
-  SW_Task2.vcxproj -> D:\git2\csad2425ki401osadchukvv18\src\SW_Task2\x64\Debug\SW_Task2.exe
+C:\Users\User\Desktop\csad\csad2425ki401osadchukvv18\src\SW_Task2\SW_Task2\client.cpp(71,44): warning C4267: 'argument': conversion from 'size_t' to 'DWORD', possible loss of data
+  LINK : C:\Users\User\Desktop\csad\csad2425ki401osadchukvv18\src\SW_Task2\x64\Debug\SW_Task2.exe not found or not built by the last incremental link; performing full link
+  SW_Task2.vcxproj -> C:\Users\User\Desktop\csad\csad2425ki401osadchukvv18\src\SW_Task2\x64\Debug\SW_Task2.exe
