@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 #ifdef MOCK_HW
 #include "hw_mock.h"
