@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\csad\\csad2425ki401osadchukvv18\\src\\SW_Task2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{190F3D9F-B770-4F03-8237-1DF6591BA034}|SW_Task2\\SW_Task2.vcxproj|C:\\Users\\User\\Desktop\\csad\\csad2425ki401osadchukvv18\\src\\SW_Task2\\SW_Task2\\client.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{190F3D9F-B770-4F03-8237-1DF6591BA034}|SW_Task2\\SW_Task2.vcxproj|solutionrelative:SW_Task2\\client.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{190F3D9F-B770-4F03-8237-1DF6591BA034}|SW_Task2\\SW_Task2.vcxproj|C:\\Users\\User\\Desktop\\csad\\csad2425ki401osadchukvv18\\src\\SW_Task2\\SW_Task2\\hw_mock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{190F3D9F-B770-4F03-8237-1DF6591BA034}|SW_Task2\\SW_Task2.vcxproj|solutionrelative:SW_Task2\\hw_mock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "hw_mock.h",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\csad\\csad2425ki401osadchukvv18\\src\\SW_Task2\\SW_Task2\\hw_mock.h",
+              "RelativeDocumentMoniker": "SW_Task2\\hw_mock.h",
+              "ToolTip": "C:\\Users\\User\\Desktop\\csad\\csad2425ki401osadchukvv18\\src\\SW_Task2\\SW_Task2\\hw_mock.h",
+              "RelativeToolTip": "SW_Task2\\hw_mock.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-10-17T19:23:34.287Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "client.cpp",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\csad\\csad2425ki401osadchukvv18\\src\\SW_Task2\\SW_Task2\\client.cpp",
+              "RelativeDocumentMoniker": "SW_Task2\\client.cpp",
+              "ToolTip": "C:\\Users\\User\\Desktop\\csad\\csad2425ki401osadchukvv18\\src\\SW_Task2\\SW_Task2\\client.cpp*",
+              "RelativeToolTip": "SW_Task2\\client.cpp*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-17T19:22:15.073Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

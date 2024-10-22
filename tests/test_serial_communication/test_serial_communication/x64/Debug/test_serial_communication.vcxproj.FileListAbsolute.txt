@@ -1,0 +1,2 @@
+C:\Users\MSI\Desktop\csad_test\tests\test_serial_communication\test_serial_communication\x64\Debug\test_ser.CB14FED0.Up2Date
+D:\git2\csad2425ki401osadchukvv18\tests\test_serial_communication\test_serial_communication\x64\Debug\test_ser.CB14FED0.Up2Date
