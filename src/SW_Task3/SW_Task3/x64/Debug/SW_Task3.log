@@ -1,0 +1,3 @@
+﻿  SW_Task3.cpp
+C:\Users\MSI\Desktop\task3\SW_Task3\SW_Task3\SW_Task3.cpp(107,59): warning C4267: 'argument': conversion from 'size_t' to 'DWORD', possible loss of data
+  SW_Task3.vcxproj -> C:\Users\MSI\Desktop\task3\SW_Task3\x64\Debug\SW_Task3.exe
