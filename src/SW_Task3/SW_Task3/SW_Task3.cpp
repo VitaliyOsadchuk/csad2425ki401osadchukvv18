@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <sstream> // for std::stringstream
 #include <fstream> // for file operations
+#include <map>
 
 enum Move { ROCK = 1, PAPER, SCISSORS };
 
@@ -24,33 +25,24 @@ std::string moveToString(int move) {
     }
 }
 
-// Write results to the ini file
-void writeResultsToFile(const std::string& mode, int playerScore, int pcScore, const std::string& highScore) {
-    std::ofstream resultsFile("results.ini");
-    if (resultsFile.is_open()) {
-        resultsFile << "Mode : " << mode << ";\n";
-        resultsFile << "Highest score: " << highScore << "\n"; // Changed format to X:Y
-        resultsFile << "Previous score: " << playerScore << " : " << pcScore << "\n";
-        resultsFile.close();
-        std::cout << "Results written to results.ini." << std::endl;
-    }
-    else {
-        std::cerr << "Unable to open results.ini for writing." << std::endl;
-    }
-}
-
-// Read highest scores from the ini file
-std::string readScoresFromFile() {
+// Load scores from ini file into a map
+std::map<std::string, std::pair<std::string, std::string>> readScoresFromFile() {
     std::ifstream resultsFile("results.ini");
-    std::string line;
-    std::string highScore = "0:0"; // Default high score
+    std::map<std::string, std::pair<std::string, std::string>> scores;
+    std::string line, mode;
+    std::string highScore, previousScore;
 
     if (resultsFile.is_open()) {
         while (std::getline(resultsFile, line)) {
-            if (line.find("Highest score: ") != std::string::npos) {
-                // Extract the highest score
-                std::size_t pos = line.find(": ") + 2; // Find position after ": "
-                highScore = line.substr(pos);
+            if (line.find("Mode :") != std::string::npos) {
+                mode = line.substr(7, line.find(';') - 7);
+            }
+            else if (line.find("Highest score:") != std::string::npos) {
+                highScore = line.substr(line.find(": ") + 2);
+            }
+            else if (line.find("Previous score:") != std::string::npos) {
+                previousScore = line.substr(line.find(": ") + 2);
+                scores[mode] = { highScore, previousScore };
             }
         }
         resultsFile.close();
@@ -58,7 +50,23 @@ std::string readScoresFromFile() {
     else {
         std::cerr << "Unable to open results.ini for reading." << std::endl;
     }
-    return highScore;
+    return scores;
+}
+
+// Write scores from map to ini file
+void writeScoresToFile(const std::map<std::string, std::pair<std::string, std::string>>& scores) {
+    std::ofstream resultsFile("results.ini");
+    if (resultsFile.is_open()) {
+        for (const auto& entry : scores) {
+            resultsFile << "Mode : " << entry.first << ";\n";
+            resultsFile << "Highest score: " << entry.second.first << "\n";
+            resultsFile << "Previous score: " << entry.second.second << "\n\n";
+        }
+        resultsFile.close();
+    }
+    else {
+        std::cerr << "Unable to open results.ini for writing." << std::endl;
+    }
 }
 
 int main() {
@@ -76,33 +84,87 @@ int main() {
         return 1;
     }
 
-    int playerScore = 0;
-    int pcScore = 0;
+    int pl1Score = 0;
+    int pl2Score = 0;
+    int mode;
+    std::map<std::string, std::pair<std::string, std::string>> scores = readScoresFromFile();
 
-    // Read the highest scores from the file
-    std::string highScore = readScoresFromFile();
+    // Choose game mode
+    std::cout << "Choose game mode:\n1 - Player vs PC\n2 - Player vs Player\n3 - PC vs PC\n\nEnter your choice: ";
+    std::cin >> mode;
 
-    // Send moves in a loop
+    // Determine mode string and read high scores
+    std::string modeString;
+    switch (mode) {
+    case 1: modeString = "Player vs PC"; break;
+    case 2: modeString = "Player vs Player"; break;
+    case 3: modeString = "PC vs PC"; break;
+    default: std::cerr << "Invalid mode selected." << std::endl; return 1;
+    }
+
+    std::string highScore = scores[modeString].first;
+    std::string previousScore = scores[modeString].second;
+
+    // Game loop
     while (true) {
-        std::cout << "Choose your move: 1 - Rock, 2 - Paper, 3 - Scissors (0 to exit): ";
-        int playerMove;
-        std::cin >> playerMove;
+        int pl1Move, pl2Move;
 
-        // Check if input is valid
-        if (playerMove == 0) {
-            break; // Exit the game
+        if (mode == 1) {
+            // Player vs PC
+            std::cout << "Choose your move: 1 - Rock, 2 - Paper, 3 - Scissors (0 to exit): ";
+            std::cin >> pl1Move;
+
+            if (pl1Move == 0) break; // Exit the game
+            if (pl1Move < 1 || pl1Move > 3) {
+                std::cout << "\nInvalid input. Try again." << std::endl;
+                continue;
+            }
+
+            pl2Move = rand() % 3 + 1; // Generate PC move
+            std::cout << "PC chose: " << moveToString(pl2Move) << std::endl;
+
         }
-        else if (playerMove < 0 || playerMove > 3) {
-            std::cout << "\nInvalid input. Choose your move: 1 - Rock, 2 - Paper, 3 - Scissors (0 to exit): " << std::endl;
-            continue; // Skip to the next iteration of the loop
+        else if (mode == 2) {
+            // Player vs Player
+            std::cout << "Player1, choose your move: 1 - Rock, 2 - Paper, 3 - Scissors (0 to exit): ";
+            std::cin >> pl1Move;
+
+            if (pl1Move == 0) break; // Exit the game
+            if (pl1Move < 1 || pl1Move > 3) {
+                std::cout << "\nInvalid input. Try again." << std::endl;
+                continue;
+            }
+
+            std::cout << "Player2, choose your move: 1 - Rock, 2 - Paper, 3 - Scissors (0 to exit): ";
+            std::cin >> pl2Move;
+
+            if (pl2Move == 0) break; // Exit the game
+            if (pl2Move < 1 || pl2Move > 3) {
+                std::cout << "\nInvalid input. Try again." << std::endl;
+                continue;
+            }
+
+        }
+        else if (mode == 3) {
+            int pcGame;
+            std::cout << "\nEnter 1 to play a round (press 0 to exit): ";
+            std::cin >> pcGame;
+
+            if (pcGame == 0) break; // Exit the game
+            if (pcGame == 1) {
+                pl1Move = rand() % 3 + 1; // PC1 move
+                pl2Move = rand() % 3 + 1; // PC2 move
+                std::cout << "PC1 chose: " << moveToString(pl1Move) << std::endl;
+                std::cout << "PC2 chose: " << moveToString(pl2Move) << std::endl;
+            }
+            else {
+                std::cout << "\nInvalid input. Try again." << std::endl;
+                continue;
+            }
         }
 
-        // Generate PC move
-        int pcMove = rand() % 3 + 1; // Random move: 1 - 3
-        std::cout << "PC chose: " << moveToString(pcMove) << std::endl;
-
-        // Prepare the message to send
-        std::string message = intToString(playerMove) + "," + intToString(pcMove) + "\n";
+        // Prepare the message to send (same for all modes)
+        std::string message = intToString(pl1Move) + "," + intToString(pl2Move) + "\n";
         DWORD bytesWritten;
         WriteFile(hSerial, message.c_str(), message.length(), &bytesWritten, NULL);
 
@@ -112,40 +174,38 @@ int main() {
         if (ReadFile(hSerial, buffer, sizeof(buffer) - 1, &bytesRead, NULL)) {
             if (bytesRead > 0) {
                 buffer[bytesRead] = '\0'; // Null-terminate the string
-                std::cout << "Received: " << buffer << std::endl;
+                std::cout << "Received " << buffer << std::endl;
 
                 // Update scores based on result
-                if (std::string(buffer).find("Player wins") != std::string::npos) {
-                    playerScore++;
+                if (std::string(buffer).find("Player1 wins") != std::string::npos) {
+                    pl1Score++;
                 }
-                else if (std::string(buffer).find("PC wins") != std::string::npos) {
-                    pcScore++;
+                else if (std::string(buffer).find("Player2 wins") != std::string::npos) {
+                    pl2Score++;
                 }
 
-                // Print the current score
-                std::cout << "Current Score - Player: " << playerScore << " : PC: " << pcScore << std::endl;
-                std::cout << "-----------------------------------------------------------------------------" << std::endl;
+                std::cout << "-------------------------------------------------------------------------------------" << std::endl;
+                std::cout << "Score: " << pl1Score << " : " << pl2Score << std::endl;
             }
+        }
+        else {
+            std::cerr << "Failed to read from serial port." << std::endl;
+        }
+
+        // Update the high score if the player has a higher score
+        int currentHighScore = highScore.empty() ? 0 : std::stoi(highScore.substr(0, highScore.find(":")));
+        if (pl1Score > currentHighScore) {
+            highScore = intToString(pl1Score) + ":" + intToString(pl2Score);
+            std::cerr << "New High Score!\n" << std::endl;
         }
     }
 
+    // Update the previous score and save the updated scores
+    scores[modeString].second = intToString(pl1Score) + ":" + intToString(pl2Score);
+    scores[modeString].first = highScore;
+    writeScoresToFile(scores);
 
-    // Check if the player has a new highest score and update if necessary
-    int currentHighPlayerScore = std::stoi(highScore.substr(0, highScore.find(':')));
-    int currentHighPCScore = std::stoi(highScore.substr(highScore.find(':') + 1));
-
-    // Determine if the current game score beats the previous high score
-    if (playerScore > currentHighPlayerScore || (playerScore == currentHighPlayerScore && pcScore < currentHighPCScore)) {
-        std::cout << "Congratulations! New High Score: " << playerScore << " : " << pcScore << std::endl;
-        highScore = intToString(playerScore) + " : " + intToString(pcScore); // Update high score
-    }
-
-    // Write final results to ini file
-    writeResultsToFile("Player vs PC", playerScore, pcScore, highScore);
-
-    // Close the serial port
+    // Cleanup
     CloseHandle(hSerial);
-    std::cout << "Serial port closed." << std::endl;
-
     return 0;
 }

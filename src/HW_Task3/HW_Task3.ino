@@ -13,23 +13,23 @@ void loop() {
         if (message.length() > 0) {  // message not empty
             // Split the message to get player move and PC move
             int delimiterIndex = message.indexOf(',');
-            int playerMove = message.substring(0, delimiterIndex).toInt();
-            int pcMove = message.substring(delimiterIndex + 1).toInt();
+            int pl1Move = message.substring(0, delimiterIndex).toInt();
+            int pl2Move = message.substring(delimiterIndex + 1).toInt();
             String result;
 
             // Determine winner
-            if (playerMove == pcMove) {
+            if (pl1Move == pl2Move) {
                 result = "Draw";
-            } else if ((playerMove == ROCK && pcMove == SCISSORS) ||
-                       (playerMove == PAPER && pcMove == ROCK) ||
-                       (playerMove == SCISSORS && pcMove == PAPER)) {
-                result = "Player wins";
+            } else if ((pl1Move == ROCK && pl2Move == SCISSORS) ||
+                       (pl1Move == PAPER && pl2Move == ROCK) ||
+                       (pl1Move == SCISSORS && pl2Move == PAPER)) {
+                result = "Player1 wins";
             } else {
-                result = "PC wins";
+                result = "Player2 wins";
             }
 
             // Print the result to the serial monitor
-            Serial.print("Result: ");
+            Serial.print("result: ");
             Serial.println(result);
         }
     }
