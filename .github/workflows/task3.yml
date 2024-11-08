@@ -1,4 +1,4 @@
-name: Build and Upload Arduino Project
+name: Build Client Application
 
 on: [push, pull_request]
 
@@ -15,58 +15,11 @@ jobs:
         # Install MinGW (g++) if it's not already available
         choco install mingw
 
-    - name: Set up Arduino CLI
-      run: |
-        # Download and install Arduino CLI
-        Invoke-WebRequest -Uri https://github.com/arduino/arduino-cli/releases/download/0.24.0/arduino-cli_0.24.0_Windows_64bit.zip -OutFile arduino-cli.zip
-        Expand-Archive arduino-cli.zip -DestinationPath $Env:ProgramFiles\Arduino
-        $Env:PATH += ";$Env:ProgramFiles\Arduino"
-      
-    - name: Install required Arduino core
-      run: |
-        # Install required Arduino core 
-        arduino-cli core update-index
-        arduino-cli core install arduino:avr
-
-    - name: Set up socat for COM port emulation
-      run: |
-        # Download socat for Windows to emulate COM port
-        Invoke-WebRequest -Uri https://github.com/andrewchambers/socat-windows/releases/download/v1.7.3.3/socat.exe -OutFile socat.exe
-        # Start socat to emulate COM3 port (emulating serial communication)
-        Start-Process -NoNewWindow -FilePath socat.exe -ArgumentList "pty,link=\\.\COM3,raw,echo=0", "tcp:localhost:12345" 
-
-    - name: Build and upload Arduino project
-      run: |
-        # Set environment variables
-        set OUTPUT_DIR=Build
-        if not exist %OUTPUT_DIR% (
-          mkdir %OUTPUT_DIR%
-        )
-        set ARDUINO_CLI_PATH=$Env:ProgramFiles\Arduino\arduino-cli.exe
-        set ARDUINO_PROJECT_PATH=src\HW_Task3
-        set BOARD=arduino:avr:mega
-        set PORT=COM3
-        
-        # Compile Arduino project
-        %ARDUINO_CLI_PATH% compile --fqbn %BOARD% --build-path %OUTPUT_DIR% %ARDUINO_PROJECT_PATH%
-        if %errorlevel% neq 0 (
-          echo "Arduino project compilation failed"
-          exit /b %errorlevel%
-        )
-        
-        # Upload Arduino project
-        %ARDUINO_CLI_PATH% upload -p %PORT% --fqbn %BOARD% --build-path %OUTPUT_DIR% %ARDUINO_PROJECT_PATH%
-        if %errorlevel% neq 0 (
-          echo "Arduino project upload failed"
-          exit /b %errorlevel%
-        )
-        echo "Arduino project uploaded successfully!"
-
     - name: Build client application
       run: |
         # Set path to client source and output directories
         set CLIENT_APP_PATH=src\SW_Task3\SW_Task3\SW_Task3.cpp
-        set CLIENT_BUILD_OUTPUT=%OUTPUT_DIR%\SW_Task3_build
+        set CLIENT_BUILD_OUTPUT=Build\SW_Task3_build
         
         if not exist %CLIENT_BUILD_OUTPUT% (
           mkdir %CLIENT_BUILD_OUTPUT%
@@ -87,16 +40,9 @@ jobs:
         )
         echo "Client application built successfully!"
 
-    - name: Run client application
-      run: |
-        start "" %CLIENT_BUILD_OUTPUT%\SW_Task3.exe
-
-    - name: List Build directory contents
-      run: dir %OUTPUT_DIR%\SW_Task3_build
-
     - name: Archive binaries
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: binaries_task3
-        path: Build\SW_Task3.exe
+        name: SW_Task3-exe
+        path: Build\SW_Task3_build\SW_Task3.exe
