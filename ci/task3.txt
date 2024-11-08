@@ -1,0 +1,68 @@
+@echo off
+rem
+
+rem Шлях до папки, де будуть зберігатись усі згенеровані файли
+set OUTPUT_DIR=Build
+
+rem Створення директорії для збереження файлів (якщо вона не існує)
+if not exist %OUTPUT_DIR% (
+    mkdir %OUTPUT_DIR%
+)
+
+rem Шлях до Arduino CLI
+set ARDUINO_CLI_PATH=3rdParty\arduino\arduino-cli.exe
+
+rem Шлях до папки HW_Task3 з серверним кодом для Arduino
+set ARDUINO_PROJECT_PATH=src\HW_Task3
+
+rem Модель плати та порт
+set BOARD=arduino:avr:mega
+set PORT=COM3
+
+rem Компільовані файли будуть збережені в OUTPUT_DIR
+rem Використовуємо параметр --build-path для вказівки місця збереження згенерованих файлів
+
+%ARDUINO_CLI_PATH% compile --fqbn %BOARD% --build-path %OUTPUT_DIR% %ARDUINO_PROJECT_PATH%
+if %errorlevel% neq 0 (
+    echo "Arduino project compilation failed"
+    exit /b %errorlevel%
+)
+
+rem Завантаження проекту на Arduino
+%ARDUINO_CLI_PATH% upload -p %PORT% --fqbn %BOARD% --build-path %OUTPUT_DIR% %ARDUINO_PROJECT_PATH%
+if %errorlevel% neq 0 (
+    echo "Arduino project upload failed"
+    exit /b %errorlevel%
+)
+
+echo "Arduino project uploaded successfully!"
+
+rem Шлях до клієнтської програми SW_Task3
+set CLIENT_APP_PATH=src\SW_Task3\SW_Task3\SW_Task3.cpp
+
+rem Створюємо каталог для зберігання згенерованих файлів клієнтської програми
+set CLIENT_BUILD_OUTPUT=%OUTPUT_DIR%\SW_Task3_build
+
+if not exist %CLIENT_BUILD_OUTPUT% (
+    mkdir %CLIENT_BUILD_OUTPUT%
+)
+
+rem Перевірка, чи MinGW доступний у PATH
+where g++ > nul 2>&1
+if %errorlevel% neq 0 (
+    echo "MinGW (g++) not found, please ensure it's installed and added to the system PATH."
+    exit /b %errorlevel%
+)
+
+rem Компіліруємо клієнтську програму за допомогою MinGW (g++)
+g++ -o %CLIENT_BUILD_OUTPUT%\SW_Task3.exe %CLIENT_APP_PATH% -lgdi32 -luser32
+
+if %errorlevel% neq 0 (
+    echo "Client application build failed"
+    exit /b %errorlevel%
+)
+
+echo "Client application built successfully!"
+
+rem Запуск клієнтської програми
+start "" %CLIENT_BUILD_OUTPUT%\SW_Task3.exe

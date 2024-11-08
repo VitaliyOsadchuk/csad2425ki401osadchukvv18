@@ -6,6 +6,7 @@
 #include <fstream> // for file operations
 #include <map>
 
+#define UNICODE
 enum Move { ROCK = 1, PAPER, SCISSORS };
 
 // Convert int to string
@@ -71,7 +72,7 @@ void writeScoresToFile(const std::map<std::string, std::pair<std::string, std::s
 
 int main() {
     srand(static_cast<unsigned int>(time(nullptr))); // Seed for random number generation
-    HANDLE hSerial = CreateFile(L"COM3",
+    HANDLE hSerial = CreateFileA("COM3",
         GENERIC_READ | GENERIC_WRITE,
         0,
         NULL,
