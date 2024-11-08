@@ -18,23 +18,22 @@ jobs:
     - name: Build client application
       run: |
         # Set path to client source and output directories
-        set CLIENT_APP_PATH=src\SW_Task3\SW_Task3\SW_Task3.cpp
-        set CLIENT_BUILD_OUTPUT=Build\SW_Task3_build
+        $CLIENT_APP_PATH = "src\SW_Task3\SW_Task3\SW_Task3.cpp"
+        $CLIENT_BUILD_OUTPUT = "Build\SW_Task3_build"
     
         # Ensure MinGW is available
-        where g++ > nul 2>&1
-        if %errorlevel% neq 0 (
-          echo "MinGW (g++) not found."
-          exit /b %errorlevel%
-        )
+        if (-not (Test-Command g++)) {
+          Write-Host "MinGW (g++) not found."
+          exit 1
+        }
 
         # Compile the client application
-        g++ -o "%CLIENT_BUILD_OUTPUT%\SW_Task3.exe" "%CLIENT_APP_PATH%" -lgdi32 -luser32
-        if %errorlevel% neq 0 (
-          echo "Client application build failed"
-          exit /b %errorlevel%
-        )
-        echo "Client application built successfully!"
+        g++ -o "$CLIENT_BUILD_OUTPUT\SW_Task3.exe" "$CLIENT_APP_PATH" -lgdi32 -luser32
+        if ($LASTEXITCODE -ne 0) {
+          Write-Host "Client application build failed"
+          exit $LASTEXITCODE
+        }
+        Write-Host "Client application built successfully!"
 
     - name: Archive binaries
       if: always()
