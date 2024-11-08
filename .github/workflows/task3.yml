@@ -99,4 +99,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: binaries_task3
-        path: %OUTPUT_DIR%\SW_Task3_build\SW_Task3.exe
+        path: Build\SW_Task3.exe
