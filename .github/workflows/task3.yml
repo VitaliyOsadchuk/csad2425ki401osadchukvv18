@@ -12,13 +12,11 @@ jobs:
 
     - name: Set up MinGW
       run: |
-      
         # Install MinGW (g++) 
         choco install mingw
 
     - name: Build client application
       run: |
-      
         # Set path to client source and output directories
         set CLIENT_APP_PATH=src\SW_Task3\SW_Task3\SW_Task3.cpp
         set CLIENT_BUILD_OUTPUT=Build\SW_Task3_build
@@ -31,7 +29,7 @@ jobs:
         )
 
         # Compile the client application
-        g++ -o %CLIENT_BUILD_OUTPUT%\SW_Task3.exe %CLIENT_APP_PATH% -lgdi32 -luser32
+        g++ -o "%CLIENT_BUILD_OUTPUT%\SW_Task3.exe" "%CLIENT_APP_PATH%" -lgdi32 -luser32
         if %errorlevel% neq 0 (
           echo "Client application build failed"
           exit /b %errorlevel%
