@@ -12,23 +12,21 @@ jobs:
 
     - name: Set up MinGW
       run: |
-        # Install MinGW (g++) if it's not already available
+      
+        # Install MinGW (g++) 
         choco install mingw
 
     - name: Build client application
       run: |
+      
         # Set path to client source and output directories
         set CLIENT_APP_PATH=src\SW_Task3\SW_Task3\SW_Task3.cpp
         set CLIENT_BUILD_OUTPUT=Build\SW_Task3_build
-        
-        if not exist %CLIENT_BUILD_OUTPUT% (
-          mkdir %CLIENT_BUILD_OUTPUT%
-        )
-
+    
         # Ensure MinGW is available
         where g++ > nul 2>&1
         if %errorlevel% neq 0 (
-          echo "MinGW (g++) not found, please ensure it's installed and added to the system PATH."
+          echo "MinGW (g++) not found."
           exit /b %errorlevel%
         )
 
