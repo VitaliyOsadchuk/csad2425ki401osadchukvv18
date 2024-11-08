@@ -1,13 +1,13 @@
-#line 1 "C:\\Users\\MSI\\Desktop\\csad2425ki401osadchukvv18\\src\\HW_Task3\\HW_Task3.ino"
+#line 1 "D:\\git2\\csad2425ki401osadchukvv18\\src\\HW_Task3\\HW_Task3.ino"
 #include <Arduino.h>
 
 enum Move { ROCK = 1, PAPER, SCISSORS };
 
-#line 5 "C:\\Users\\MSI\\Desktop\\csad2425ki401osadchukvv18\\src\\HW_Task3\\HW_Task3.ino"
+#line 5 "D:\\git2\\csad2425ki401osadchukvv18\\src\\HW_Task3\\HW_Task3.ino"
 void setup();
-#line 9 "C:\\Users\\MSI\\Desktop\\csad2425ki401osadchukvv18\\src\\HW_Task3\\HW_Task3.ino"
+#line 9 "D:\\git2\\csad2425ki401osadchukvv18\\src\\HW_Task3\\HW_Task3.ino"
 void loop();
-#line 5 "C:\\Users\\MSI\\Desktop\\csad2425ki401osadchukvv18\\src\\HW_Task3\\HW_Task3.ino"
+#line 5 "D:\\git2\\csad2425ki401osadchukvv18\\src\\HW_Task3\\HW_Task3.ino"
 void setup() {
     Serial.begin(115200);  // Baud rate 115200
 }

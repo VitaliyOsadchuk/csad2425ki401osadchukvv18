@@ -1,26 +1,26 @@
 @echo off
 rem
 
-rem Шлях до папки, де будуть зберігатись усі згенеровані файли
+rem Path to generated files
 set OUTPUT_DIR=Build
 
-rem Створення директорії для збереження файлів (якщо вона не існує)
+rem create if doesnt exist
 if not exist %OUTPUT_DIR% (
     mkdir %OUTPUT_DIR%
 )
 
-rem Шлях до Arduino CLI
+rem Arduino CLI path
 set ARDUINO_CLI_PATH=3rdParty\arduino\arduino-cli.exe
 
-rem Шлях до папки HW_Task3 з серверним кодом для Arduino
+rem  HW_Task3 path
 set ARDUINO_PROJECT_PATH=src\HW_Task3
 
-rem Модель плати та порт
+rem port and board
 set BOARD=arduino:avr:mega
 set PORT=COM3
 
-rem Компільовані файли будуть збережені в OUTPUT_DIR
-rem Використовуємо параметр --build-path для вказівки місця збереження згенерованих файлів
+rem Compiled fikes will be saved in OUTPUT_DIR
+rem  --build-path for saved files
 
 %ARDUINO_CLI_PATH% compile --fqbn %BOARD% --build-path %OUTPUT_DIR% %ARDUINO_PROJECT_PATH%
 if %errorlevel% neq 0 (
@@ -28,7 +28,7 @@ if %errorlevel% neq 0 (
     exit /b %errorlevel%
 )
 
-rem Завантаження проекту на Arduino
+rem  Arduino upload
 %ARDUINO_CLI_PATH% upload -p %PORT% --fqbn %BOARD% --build-path %OUTPUT_DIR% %ARDUINO_PROJECT_PATH%
 if %errorlevel% neq 0 (
     echo "Arduino project upload failed"
@@ -37,24 +37,24 @@ if %errorlevel% neq 0 (
 
 echo "Arduino project uploaded successfully!"
 
-rem Шлях до клієнтської програми SW_Task3
+rem SW_Task3 path
 set CLIENT_APP_PATH=src\SW_Task3\SW_Task3\SW_Task3.cpp
 
-rem Створюємо каталог для зберігання згенерованих файлів клієнтської програми
+rem create dir for clients's exe
 set CLIENT_BUILD_OUTPUT=%OUTPUT_DIR%\SW_Task3_build
 
 if not exist %CLIENT_BUILD_OUTPUT% (
     mkdir %CLIENT_BUILD_OUTPUT%
 )
 
-rem Перевірка, чи MinGW доступний у PATH
+rem MinGW 
 where g++ > nul 2>&1
 if %errorlevel% neq 0 (
     echo "MinGW (g++) not found, please ensure it's installed and added to the system PATH."
     exit /b %errorlevel%
 )
 
-rem Компіліруємо клієнтську програму за допомогою MinGW (g++)
+rem compile with MinGW (g++)
 g++ -o %CLIENT_BUILD_OUTPUT%\SW_Task3.exe %CLIENT_APP_PATH% -lgdi32 -luser32
 
 if %errorlevel% neq 0 (
@@ -64,5 +64,5 @@ if %errorlevel% neq 0 (
 
 echo "Client application built successfully!"
 
-rem Запуск клієнтської програми
+rem start client
 start "" %CLIENT_BUILD_OUTPUT%\SW_Task3.exe
