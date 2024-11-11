@@ -1,0 +1,7 @@
+﻿  SW_Task3.cpp
+C:\Users\MSI\Desktop\csad2425ki401osadchukvv18\src\SW_Task3\SW_Task3\SW_Task3.cpp(9,9): warning C4005: 'UNICODE': macro redefinition
+      C:\Users\MSI\Desktop\csad2425ki401osadchukvv18\src\SW_Task3\SW_Task3\SW_Task3.cpp(9,9):
+      'UNICODE' previously declared on the command line
+  
+C:\Users\MSI\Desktop\csad2425ki401osadchukvv18\src\SW_Task3\SW_Task3\SW_Task3.cpp(170,59): warning C4267: 'argument': conversion from 'size_t' to 'DWORD', possible loss of data
+  SW_Task3.vcxproj -> C:\Users\MSI\Desktop\csad2425ki401osadchukvv18\src\SW_Task3\x64\Debug\SW_Task3.exe

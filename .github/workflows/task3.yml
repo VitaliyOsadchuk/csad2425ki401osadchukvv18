@@ -1,0 +1,32 @@
+name: Build Client Application
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up MinGW
+      run: |
+        # Install MinGW (g++) 
+        choco install mingw
+
+    - name: Build client application
+      run: |
+        # Set path to client source and output directories
+        $CLIENT_APP_PATH = "src\SW_Task3\SW_Task3\SW_Task3.cpp"
+        $CLIENT_BUILD_OUTPUT = "Build\SW_Task3_build"
+  
+        # Compile the client application
+        g++ -o "$CLIENT_BUILD_OUTPUT\SW_Task3.exe" "$CLIENT_APP_PATH" -lgdi32 -luser32
+        
+    - name: Archive binaries
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: SW_Task3-exe
+        path: Build\SW_Task3_build\SW_Task3.exe

@@ -1,0 +1,17 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\MSI\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\MSI\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\mega"
+  },
+  {
+    "Sourcefile": "D:\\git2\\csad2425ki401osadchukvv18\\Build\\sketch\\HW_Task3.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]

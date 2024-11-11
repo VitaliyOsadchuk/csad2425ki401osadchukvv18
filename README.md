@@ -18,7 +18,7 @@ Currently this repository contains the code and documentation for Task 1 and Tas
 
 ## Technology, Programming Language, and Hardware
 - Programming Language: C++
-- Framework/Technology: RayLib - for game interface
+- Framework/Technology: googletest - for tests;
 - Hardware: Arduino MEGA2560 WiFi R3 Wemos(with built-in ESP8266)
 
 ##----------Task2----------
@@ -27,3 +27,10 @@ Currently this repository contains the code and documentation for Task 1 and Tas
 - added lab report for task1;
 - updated readme;
 - created communication mock test;
+
+##----------Task3----------
+- created simple R-P-C client-server game with 3 gamemodes and .ini config file which saves players best score and previous game score;
+- created yml file;
+- created ci script for automatic HW scetch build+upload and client side compile+execution;
+- added lab report for task2;
+- updated readme;
