@@ -1,0 +1,207 @@
+\doxysection{src/\+SW\+\_\+\+Task4/\+SW\+\_\+\+Task4/\+SW\+\_\+\+Task4.cpp File Reference}
+\hypertarget{_s_w___task4_8cpp}{}\label{_s_w___task4_8cpp}\index{src/SW\_Task4/SW\_Task4/SW\_Task4.cpp@{src/SW\_Task4/SW\_Task4/SW\_Task4.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$ctime$>$}\newline
+{\ttfamily \#include $<$windows.\+h$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_s_w___task4_8cpp_a09ecca53f2cd1b8d1c566bedb245e141}{UNICODE}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_s_w___task4_8cpp_a19b869a01ca1a58f4164b4f75c2df388}{Move}} \{ \mbox{\hyperlink{_s_w___task4_8cpp_a19b869a01ca1a58f4164b4f75c2df388ab39e373af8c527684a4f0ded36bd961c}{ROCK}} = 1
+, \mbox{\hyperlink{_s_w___task4_8cpp_a19b869a01ca1a58f4164b4f75c2df388a7389f93213a51611b2427f6dc3d48dc9}{PAPER}}
+, \mbox{\hyperlink{_s_w___task4_8cpp_a19b869a01ca1a58f4164b4f75c2df388adb621cb449fc02ea3607dfed5f2423d0}{SCISSORS}}
+ \}
+\begin{DoxyCompactList}\small\item\em Represents the possible moves in the Rock-\/\+Paper-\/\+Scissors game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{_s_w___task4_8cpp_abd1d13db0ad1798d2f38bf71a5ae3d81}{int\+To\+String}} (int value)
+\begin{DoxyCompactList}\small\item\em Converts an integer to its string representation. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{_s_w___task4_8cpp_ac5bcf535b436697c97dc36023500859c}{move\+To\+String}} (int move)
+\begin{DoxyCompactList}\small\item\em Converts a move (int) to its corresponding string representation. \end{DoxyCompactList}\item 
+std\+::map$<$ std\+::string, std\+::pair$<$ std\+::string, std\+::string $>$ $>$ \mbox{\hyperlink{_s_w___task4_8cpp_a1394940009c84a05ddb8c3cfe781377a}{read\+Scores\+From\+File}} ()
+\begin{DoxyCompactList}\small\item\em Reads the high scores and previous scores from the "{}results.\+ini"{} file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_s_w___task4_8cpp_adf641f89a0321245bd404274c41d91d1}{write\+Scores\+To\+File}} (const std\+::map$<$ std\+::string, std\+::pair$<$ std\+::string, std\+::string $>$ $>$ \&scores)
+\begin{DoxyCompactList}\small\item\em Writes the high scores and previous scores to the "{}results.\+ini"{} file. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{_s_w___task4_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Main function of the program. Implements the Rock-\/\+Paper-\/\+Scissors game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_s_w___task4_8cpp_a09ecca53f2cd1b8d1c566bedb245e141}\index{SW\_Task4.cpp@{SW\_Task4.cpp}!UNICODE@{UNICODE}}
+\index{UNICODE@{UNICODE}!SW\_Task4.cpp@{SW\_Task4.cpp}}
+\doxysubsubsection{\texorpdfstring{UNICODE}{UNICODE}}
+{\footnotesize\ttfamily \label{_s_w___task4_8cpp_a09ecca53f2cd1b8d1c566bedb245e141} 
+\#define UNICODE}
+
+SW\+\_\+\+Task4\+\_\+\+CPP Author \+: Osadchuk Vitaliy KI401 
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_s_w___task4_8cpp_a19b869a01ca1a58f4164b4f75c2df388}\index{SW\_Task4.cpp@{SW\_Task4.cpp}!Move@{Move}}
+\index{Move@{Move}!SW\_Task4.cpp@{SW\_Task4.cpp}}
+\doxysubsubsection{\texorpdfstring{Move}{Move}}
+{\footnotesize\ttfamily \label{_s_w___task4_8cpp_a19b869a01ca1a58f4164b4f75c2df388} 
+enum \mbox{\hyperlink{_s_w___task4_8cpp_a19b869a01ca1a58f4164b4f75c2df388}{Move}}}
+
+
+
+Represents the possible moves in the Rock-\/\+Paper-\/\+Scissors game. 
+
+Possible values\+:
+\begin{DoxyItemize}
+\item ROCK\+: Rock (value = 1)
+\item PAPER\+: Paper (value = 2)
+\item SCISSORS\+: Scissors (value = 3) 
+\end{DoxyItemize}\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ROCK@{ROCK}!SW\_Task4.cpp@{SW\_Task4.cpp}}\index{SW\_Task4.cpp@{SW\_Task4.cpp}!ROCK@{ROCK}}}\Hypertarget{_s_w___task4_8cpp_a19b869a01ca1a58f4164b4f75c2df388ab39e373af8c527684a4f0ded36bd961c}\label{_s_w___task4_8cpp_a19b869a01ca1a58f4164b4f75c2df388} 
+ROCK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAPER@{PAPER}!SW\_Task4.cpp@{SW\_Task4.cpp}}\index{SW\_Task4.cpp@{SW\_Task4.cpp}!PAPER@{PAPER}}}\Hypertarget{_s_w___task4_8cpp_a19b869a01ca1a58f4164b4f75c2df388a7389f93213a51611b2427f6dc3d48dc9}\label{_s_w___task4_8cpp_a19b869a01ca1a58f4164b4f75c2df388} 
+PAPER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SCISSORS@{SCISSORS}!SW\_Task4.cpp@{SW\_Task4.cpp}}\index{SW\_Task4.cpp@{SW\_Task4.cpp}!SCISSORS@{SCISSORS}}}\Hypertarget{_s_w___task4_8cpp_a19b869a01ca1a58f4164b4f75c2df388adb621cb449fc02ea3607dfed5f2423d0}\label{_s_w___task4_8cpp_a19b869a01ca1a58f4164b4f75c2df388} 
+SCISSORS&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_s_w___task4_8cpp_abd1d13db0ad1798d2f38bf71a5ae3d81}\index{SW\_Task4.cpp@{SW\_Task4.cpp}!intToString@{intToString}}
+\index{intToString@{intToString}!SW\_Task4.cpp@{SW\_Task4.cpp}}
+\doxysubsubsection{\texorpdfstring{intToString()}{intToString()}}
+{\footnotesize\ttfamily \label{_s_w___task4_8cpp_abd1d13db0ad1798d2f38bf71a5ae3d81} 
+std\+::string int\+To\+String (\begin{DoxyParamCaption}\item[{int}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Converts an integer to its string representation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The integer value to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The string representation of the integer. 
+\end{DoxyReturn}
+\Hypertarget{_s_w___task4_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{SW\_Task4.cpp@{SW\_Task4.cpp}!main@{main}}
+\index{main@{main}!SW\_Task4.cpp@{SW\_Task4.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{_s_w___task4_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Main function of the program. Implements the Rock-\/\+Paper-\/\+Scissors game. 
+
+The program supports three modes\+:
+\begin{DoxyItemize}
+\item Player vs PC
+\item Player vs Player
+\item PC vs PC
+\end{DoxyItemize}
+
+\begin{DoxyReturn}{Returns}
+Exit status (0 for success, non-\/zero for failure). 
+\end{DoxyReturn}
+Handle h\+Serial for the serial port. Used to send and receive data during gameplay.
+
+int pl1\+Score and int pl2\+Score -\/ Player scores.
+
+Game mode selected by the user. Possible values\+:
+\begin{DoxyItemize}
+\item 1\+: Player vs PC
+\item 2\+: Player vs Player
+\item 3\+: PC vs PC
+\end{DoxyItemize}
+
+A map containing scores for each game mode. Key\+: Mode name (e.\+g., "{}\+Player vs PC"{}). Value\+: A pair of strings (highest score, previous score).
+
+string high\+Score -\/ Highest score for the selected mode, read from the file.
+
+string previous\+Score -\/ Previous score for the selected mode, read from the file.
+
+Game loop. User can press 0 to exit game.
+
+int pl1\+Move, pl2\+Move -\/ player1 and 2 choices(rock, paper, scissors or exit)
+
+DWORD bytes\+Written -\/ Number of bytes written to the serial port.
+
+Send moves to the serial port
+
+char buffer\mbox{[}256\mbox{]} -\/ Buffer for receiving data from the serial port
+
+Read response from serial port
+
+Update scores based on result
+
+int current\+High\+Score -\/ value of current high score
+
+Update the previous score and save the updated scores
+
+Close the serial port and exit\Hypertarget{_s_w___task4_8cpp_ac5bcf535b436697c97dc36023500859c}\index{SW\_Task4.cpp@{SW\_Task4.cpp}!moveToString@{moveToString}}
+\index{moveToString@{moveToString}!SW\_Task4.cpp@{SW\_Task4.cpp}}
+\doxysubsubsection{\texorpdfstring{moveToString()}{moveToString()}}
+{\footnotesize\ttfamily \label{_s_w___task4_8cpp_ac5bcf535b436697c97dc36023500859c} 
+std\+::string move\+To\+String (\begin{DoxyParamCaption}\item[{int}]{move}{}\end{DoxyParamCaption})}
+
+
+
+Converts a move (int) to its corresponding string representation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em move} & The move to convert (ROCK, PAPER, or SCISSORS). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string ("{}\+Rock"{}, "{}\+Paper"{}, "{}\+Scissors"{}) corresponding to the move. 
+\end{DoxyReturn}
+\Hypertarget{_s_w___task4_8cpp_a1394940009c84a05ddb8c3cfe781377a}\index{SW\_Task4.cpp@{SW\_Task4.cpp}!readScoresFromFile@{readScoresFromFile}}
+\index{readScoresFromFile@{readScoresFromFile}!SW\_Task4.cpp@{SW\_Task4.cpp}}
+\doxysubsubsection{\texorpdfstring{readScoresFromFile()}{readScoresFromFile()}}
+{\footnotesize\ttfamily \label{_s_w___task4_8cpp_a1394940009c84a05ddb8c3cfe781377a} 
+std\+::map$<$ std\+::string, std\+::pair$<$ std\+::string, std\+::string $>$ $>$ read\+Scores\+From\+File (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Reads the high scores and previous scores from the "{}results.\+ini"{} file. 
+
+The file format\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Mode\ :\ Player\ vs\ PC;}
+\DoxyCodeLine{Highest\ score:\ 5:3}
+\DoxyCodeLine{Previous\ score:\ 3:4}
+
+\end{DoxyCode}
+
+
+\begin{DoxyReturn}{Returns}
+A map where the key is the mode name (e.\+g., "{}\+Player vs PC"{}) and the value is a pair of strings representing the highest score and the previous score. 
+\end{DoxyReturn}
+\Hypertarget{_s_w___task4_8cpp_adf641f89a0321245bd404274c41d91d1}\index{SW\_Task4.cpp@{SW\_Task4.cpp}!writeScoresToFile@{writeScoresToFile}}
+\index{writeScoresToFile@{writeScoresToFile}!SW\_Task4.cpp@{SW\_Task4.cpp}}
+\doxysubsubsection{\texorpdfstring{writeScoresToFile()}{writeScoresToFile()}}
+{\footnotesize\ttfamily \label{_s_w___task4_8cpp_adf641f89a0321245bd404274c41d91d1} 
+void write\+Scores\+To\+File (\begin{DoxyParamCaption}\item[{const std\+::map$<$ std\+::string, std\+::pair$<$ std\+::string, std\+::string $>$ $>$ \&}]{scores}{}\end{DoxyParamCaption})}
+
+
+
+Writes the high scores and previous scores to the "{}results.\+ini"{} file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scores} & A map containing the scores for each mode. Each key is a mode name and each value is a pair of strings\+: highest score and previous score. \\
+\hline
+\end{DoxyParams}
