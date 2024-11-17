@@ -1,0 +1,60 @@
+name: Generate Doxygen
+
+on: [push, pull_request]
+
+jobs:
+  generate-docs:
+    name: Generate Doxygen Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y doxygen doxygen-latex graphviz texlive-full
+
+
+    - name: Generate HW Documentation
+      run: |
+        mkdir -p docs/doxygen/hw4
+        doxygen -g HW_doxy
+        sed -i 's|^INPUT *=.*|INPUT = src/HW_Task4/|' HW_doxy
+        sed -i 's|^OUTPUT_DIRECTORY *=.*|OUTPUT_DIRECTORY = docs/doxygen/hw4|' HW_doxy
+        sed -i 's|^GENERATE_LATEX *= NO|GENERATE_LATEX = YES|' HW_doxy
+        sed -i 's|^GENERATE_HTML *= NO|GENERATE_HTML = YES|' HW_doxy
+        sed -i 's|^PROJECT_NAME *= "My Project"|PROJECT_NAME = "HW_T4"|' HW_doxy
+        sed -i 's|^FILE_PATTERNS *=.*|FILE_PATTERNS = *.ino|' HW_doxy
+        sed -i 's|^EXTENSION_MAPPING *=.*|EXTENSION_MAPPING = ino=C|' HW_doxy
+        sed -i 's|^RECURSIVE *= NO|RECURSIVE = YES|' HW_doxy
+        doxygen HW_doxy
+        cd docs/doxygen/hw4/latex && make && cd -
+
+    - name: Generate SW Documentation
+      run: |
+        mkdir -p docs/doxygen/sw4
+        doxygen -g SW_doxy
+        sed -i 's|^INPUT *=.*|INPUT = src/SW_Task4/SW_Task4/|' SW_doxy
+        sed -i 's|^OUTPUT_DIRECTORY *=.*|OUTPUT_DIRECTORY = docs/doxygen/sw4|' SW_doxy
+        sed -i 's|^GENERATE_LATEX *= NO|GENERATE_LATEX = YES|' SW_doxy
+        sed -i 's|^GENERATE_HTML *= NO|GENERATE_HTML = YES|' SW_doxy
+        sed -i 's|^PROJECT_NAME *= "My Project"|PROJECT_NAME = "SW_T4"|' SW_doxy
+        sed -i 's|^FILE_PATTERNS *=.*|FILE_PATTERNS = *.cpp|' SW_doxy
+        sed -i 's|^EXTENSION_MAPPING *=.*|EXTENSION_MAPPING = cpp=C++|' SW_doxy
+        sed -i 's|^RECURSIVE *= NO|RECURSIVE = YES|' SW_doxy
+        doxygen SW_doxy
+        cd docs/doxygen/sw4/latex && make && cd -
+
+    - name: Upload HW Documentation
+      uses: actions/upload-artifact@v4
+      with:
+        name: hw-documentation
+        path: docs/doxygen/hw4
+
+    - name: Upload SW Documentation
+      uses: actions/upload-artifact@v4
+      with:
+        name: sw-documentation
+        path: docs/doxygen/sw4

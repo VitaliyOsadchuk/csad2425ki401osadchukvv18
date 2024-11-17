@@ -1,0 +1,7 @@
+﻿  SW_Task4.cpp
+D:\csad2425ki401osadchukvv18\src\SW_Task4\SW_Task4\SW_Task4.cpp(13,9): warning C4005: 'UNICODE': macro redefinition
+      D:\csad2425ki401osadchukvv18\src\SW_Task4\SW_Task4\SW_Task4.cpp(13,9):
+      'UNICODE' previously declared on the command line
+  
+D:\csad2425ki401osadchukvv18\src\SW_Task4\SW_Task4\SW_Task4.cpp(264,59): warning C4267: 'argument': conversion from 'size_t' to 'DWORD', possible loss of data
+  SW_Task4.vcxproj -> D:\csad2425ki401osadchukvv18\src\SW_Task4\x64\Debug\SW_Task4.exe
