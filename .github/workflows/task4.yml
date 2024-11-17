@@ -23,11 +23,13 @@ jobs:
       run: |
         mkdir -p docs/hw
         doxygen -g hw_doxyfile
-        sed -i 's|^INPUT *=.*|INPUT = src/HW_Task4/HW_Task4.ino|' hw_doxyfile
+        sed -i 's|^INPUT *=.*|INPUT = src/HW_Task4|' hw_doxyfile
         sed -i 's|^OUTPUT_DIRECTORY *=.*|OUTPUT_DIRECTORY = docs/hw|' hw_doxyfile
         sed -i 's|^GENERATE_LATEX *= NO|GENERATE_LATEX = YES|' hw_doxyfile
         sed -i 's|^GENERATE_HTML *= NO|GENERATE_HTML = YES|' hw_doxyfile
         sed -i 's|^PROJECT_NAME *= "My Project"|PROJECT_NAME = "HW_Task4 Documentation"|' hw_doxyfile
+        sed -i 's|^FILE_PATTERNS *=.*|FILE_PATTERNS = *.ino|' hw_doxyfile
+        sed -i 's|^EXTENSION_MAPPING *=.*|EXTENSION_MAPPING = ino=C|' hw_doxyfile
         doxygen hw_doxyfile
         cd docs/hw/latex && make && cd -
 
@@ -36,11 +38,13 @@ jobs:
       run: |
         mkdir -p docs/sw
         doxygen -g sw_doxyfile
-        sed -i 's|^INPUT *=.*|INPUT = src/SW_Task4/SW_Task4/SW_Task4.cpp|' sw_doxyfile
+        sed -i 's|^INPUT *=.*|INPUT = src/SW_Task4/SW_Task4|' sw_doxyfile
         sed -i 's|^OUTPUT_DIRECTORY *=.*|OUTPUT_DIRECTORY = docs/sw|' sw_doxyfile
         sed -i 's|^GENERATE_LATEX *= NO|GENERATE_LATEX = YES|' sw_doxyfile
         sed -i 's|^GENERATE_HTML *= NO|GENERATE_HTML = YES|' sw_doxyfile
         sed -i 's|^PROJECT_NAME *= "My Project"|PROJECT_NAME = "SW_Task4 Documentation"|' sw_doxyfile
+        sed -i 's|^FILE_PATTERNS *=.*|FILE_PATTERNS = *.cpp|' sw_doxyfile
+        sed -i 's|^EXTENSION_MAPPING *=.*|EXTENSION_MAPPING = cpp=C++|' sw_doxyfile
         doxygen sw_doxyfile
         cd docs/sw/latex && make && cd -
 
