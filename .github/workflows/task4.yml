@@ -8,47 +8,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
     - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y doxygen graphviz
+        sudo apt-get install -y doxygen doxygen-latex graphviz texlive-full
 
     - name: Generate HW Documentation
       run: |
         mkdir -p docs/hw
         doxygen -g hw_doxyfile
-        sed -i 's|^INPUT *=.*|INPUT = src/HW_Task4|' hw_doxyfile
+        sed -i 's|^INPUT *=.*|INPUT = src/HW_Task4/HW_Task4.ino|' hw_doxyfile
         sed -i 's|^OUTPUT_DIRECTORY *=.*|OUTPUT_DIRECTORY = docs/hw|' hw_doxyfile
-        sed -i 's|^GENERATE_LATEX *= YES|GENERATE_LATEX = NO|' hw_doxyfile
-        sed -i 's|^GENERATE_HTML *= NO|GENERATE_HTML = YES|' hw_doxyfile
-        sed -i 's|^PROJECT_NAME *= "My Project"|PROJECT_NAME = "HW_Task4 Documentation"|' hw_doxyfile
         sed -i 's|^FILE_PATTERNS *=.*|FILE_PATTERNS = *.ino|' hw_doxyfile
-        sed -i 's|^EXTENSION_MAPPING *=.*|EXTENSION_MAPPING = ino=C|' hw_doxyfile
-        sed -i 's|^RECURSIVE *= NO|RECURSIVE = YES|' hw_doxyfile
+        sed -i 's|^EXTENSION_MAPPING *=.*|EXTENSION_MAPPING = ino=c|' hw_doxyfile
+        sed -i 's|^GENERATE_LATEX *= NO|GENERATE_LATEX = NO|' hw_doxyfile
+        sed -i 's|^GENERATE_HTML *= NO|GENERATE_HTML = YES|' hw_doxyfile
+        sed -i 's|^PROJECT_NAME *=.*|PROJECT_NAME = "HW_Task4 Documentation"|' hw_doxyfile
         doxygen hw_doxyfile
-
-    - name: Generate SW Documentation
-      run: |
-        mkdir -p docs/sw
-        doxygen -g sw_doxyfile
-        sed -i 's|^INPUT *=.*|INPUT = src/SW_Task4/SW_Task4|' sw_doxyfile
-        sed -i 's|^OUTPUT_DIRECTORY *=.*|OUTPUT_DIRECTORY = docs/sw|' sw_doxyfile
-        sed -i 's|^GENERATE_LATEX *= YES|GENERATE_LATEX = NO|' sw_doxyfile
-        sed -i 's|^GENERATE_HTML *= NO|GENERATE_HTML = YES|' sw_doxyfile
-        sed -i 's|^PROJECT_NAME *= "My Project"|PROJECT_NAME = "SW_Task4 Documentation"|' sw_doxyfile
-        sed -i 's|^FILE_PATTERNS *=.*|FILE_PATTERNS = *.cpp|' sw_doxyfile
-        sed -i 's|^EXTENSION_MAPPING *=.*|EXTENSION_MAPPING = cpp=C++|' sw_doxyfile
-        sed -i 's|^RECURSIVE *= NO|RECURSIVE = YES|' sw_doxyfile
-        doxygen sw_doxyfile
 
     - name: Upload HW Documentation
       uses: actions/upload-artifact@v4
       with:
         name: hw-documentation
         path: docs/hw
+
+    - name: Generate SW Documentation
+      run: |
+        mkdir -p docs/sw
+        doxygen -g sw_doxyfile
+        sed -i 's|^INPUT *=.*|INPUT = src/SW_Task4/SW_Task4/SW_Task4.cpp|' sw_doxyfile
+        sed -i 's|^OUTPUT_DIRECTORY *=.*|OUTPUT_DIRECTORY = docs/sw|' sw_doxyfile
+        sed -i 's|^FILE_PATTERNS *=.*|FILE_PATTERNS = *.cpp|' sw_doxyfile
+        sed -i 's|^EXTENSION_MAPPING *=.*|EXTENSION_MAPPING = cpp=C++|' sw_doxyfile
+        sed -i 's|^GENERATE_LATEX *= NO|GENERATE_LATEX = NO|' sw_doxyfile
+        sed -i 's|^GENERATE_HTML *= NO|GENERATE_HTML = YES|' sw_doxyfile
+        sed -i 's|^PROJECT_NAME *=.*|PROJECT_NAME = "SW_Task4 Documentation"|' sw_doxyfile
+        doxygen sw_doxyfile
 
     - name: Upload SW Documentation
       uses: actions/upload-artifact@v4
