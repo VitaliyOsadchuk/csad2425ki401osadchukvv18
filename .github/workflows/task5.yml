@@ -1,8 +1,6 @@
 name: Test Client Application
 
-on: 
-  push:
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   build:
@@ -12,29 +10,36 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up MinGW
-      run: |
-        choco install mingw
+    - name: Set up MSVC
+      uses: actions/setup-msbuild@v1
 
     - name: Install Google Test
       run: |
+        # Clone Google Test repository
         git clone --branch release-1.11.0 https://github.com/google/googletest.git
         cd googletest
-        cmake -G "MinGW Makefiles" .
-        cmake --build . --target install
+        # Set up Google Test using CMake
+        cmake -G "Visual Studio 16 2019" .
+        cmake --build . --config Release
+        cmake --install . --prefix "$PWD/installed"
         cd ..
 
-    - name: Build tests
+    - name: Build tests using MSVC
       run: |
+        # Set the path to your test source and output directories
         $TEST_APP_PATH = "tests\SWtask5\SWtask5\test.cpp"
         $TEST_BUILD_OUTPUT = "Build\task5_output"
 
-        g++ -I"$PWD\googletest\googletest\include" -I"$PWD\googletest\googletest" -std=c++17 -o "$TEST_BUILD_OUTPUT\task5.exe" "$TEST_APP_PATH" -L"$PWD\googletest\build\lib" -lgtest -lgtest_main -pthread
+        # Set up the environment for MSVC
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
+
+        # Compile the test executable using MSVC
+        cl /EHsc /I"$PWD\googletest\googletest\include" /I"$PWD\googletest\googletest" "$TEST_APP_PATH" /link /LIBPATH:"$PWD\googletest\installed\lib" gtest.lib gtest_main.lib
 
     - name: Run tests and save output to XML
       run: |
         cd Build/task5_output
-        ./task5.exe --gtest_output=xml:../test_results.xml
+        .\task5.exe --gtest_output=xml:../test_results.xml  
 
     - name: Upload test results as artifact
       uses: actions/upload-artifact@v4
