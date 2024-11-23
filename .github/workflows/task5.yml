@@ -14,38 +14,44 @@ jobs:
       run: |
         choco install mingw
 
+    - name: Install Google Test
+      run: |
+        git clone --branch release-1.11.0 https://github.com/google/googletest.git
+        cd googletest
+        cmake .
+        cmake --build . --target install
+        cd ..
+
     - name: Build client application
       run: |
         # Set path to client source and output directories
         $CLIENT_APP_PATH = "src\SW_Task3\SW_Task3\SW_Task3.cpp"
         $CLIENT_BUILD_OUTPUT = "Build\SW_Task3_build"
   
-        # Compile the client application
         g++ -o "$CLIENT_BUILD_OUTPUT\SW_Task3.exe" "$CLIENT_APP_PATH" -lgdi32 -luser32
         
     - name: Build tests
       run: |
-        # Set path to test source and output directories
         $TEST_APP_PATH = "tests\SWtask5\SWtask5\test.cpp"
         $TEST_BUILD_OUTPUT = "Build\task5_output"
 
-        # Compile the test executable
-        g++ -o "$TEST_BUILD_OUTPUT\task5.exe" "$TEST_APP_PATH" -lgtest -lgtest_main -pthread
+        # Compile the test executable with Google Test
+        g++ -I"$PWD\googletest\googletest\include" -o "$TEST_BUILD_OUTPUT\task5.exe" "$TEST_APP_PATH" -L"$PWD\googletest\build\lib" -lgtest -lgtest_main -pthread
 
     - name: Run tests and save output to XML
       run: |
-        cd Build/test_output
-        ./test.exe --gtest_output=xml:../test_results.xml  
+        cd Build/task5_output
+        ./task5.exe --gtest_output=xml:../test_results.xml  
 
     - name: Upload test results as artifact
       uses: actions/upload-artifact@v4
       with:
         name: test-results
-        path: Build/task5_output.xml
+        path: Build/test_results.xml
 
     - name: Archive binaries
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: SWtask5_exe
-        path: Build\task5.exe
+        name: task5_exe
+        path: Build\task5_output\task5.exe
