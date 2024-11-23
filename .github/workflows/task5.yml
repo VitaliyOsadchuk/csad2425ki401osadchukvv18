@@ -10,10 +10,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up MSVC (Microsoft Visual C++)
-      uses: actions/setup-msvc@v1
+    - name: Set up Visual Studio
+      uses: microsoft/setup-msbuild@v1.0
       with:
-        vs-version: 'latest' 
+        vs-version: 'latest'
 
     - name: Install Google Test
       run: |
@@ -27,9 +27,7 @@ jobs:
       run: |
         $TEST_APP_PATH = "tests\SWtask5\SWtask5\test.cpp"
         $TEST_BUILD_OUTPUT = "Build\task5_output"
-        
-    
-        cl /I"$PWD\googletest\googletest\include" /I"$PWD\googletest\googletest" /EHsc "$TEST_APP_PATH" /link "$PWD\googletest\build\lib\gtest.lib" "$PWD\googletest\build\lib\gtest_main.lib" /out:"$TEST_BUILD_OUTPUT\task5.exe"
+        & "$Env:ProgramFiles\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.29.30037\bin\Hostx64\x64\cl.exe" /I"$PWD\googletest\googletest\include" /EHsc "$TEST_APP_PATH" /link "$PWD\googletest\build\lib\gtest.lib" "$PWD\googletest\build\lib\gtest_main.lib" /out:"$TEST_BUILD_OUTPUT\task5.exe"
 
     - name: Run tests and save output to XML
       run: |
