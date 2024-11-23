@@ -1,9 +1,9 @@
-name: Build and Test Client Application
+name: Test Client Application
 
 on: [push, pull_request]
 
 jobs:
-  test client using googletest:
+  build:
     runs-on: windows-latest
 
     steps:
