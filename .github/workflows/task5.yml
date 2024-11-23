@@ -4,35 +4,38 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up Visual Studio
-      uses: microsoft/setup-msbuild@v1.0
-      with:
-        vs-version: 'latest'
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y g++ cmake libgtest-dev
 
     - name: Install Google Test
       run: |
+        # Download and build Google Test from source
+        cd ~
         git clone --branch release-1.11.0 https://github.com/google/googletest.git
         cd googletest
         cmake .
-        cmake --build . --target install
-        cd ..
-        
-    - name: Build tests using MSVC
+        sudo cmake --build . --target install
+
+    - name: Build tests using GCC
       run: |
-        $TEST_APP_PATH = "tests\SWtask5\SWtask5\test.cpp"
-        $TEST_BUILD_OUTPUT = "Build\task5_output"
-        & "$Env:ProgramFiles\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.29.30037\bin\Hostx64\x64\cl.exe" /I"$PWD\googletest\googletest\include" /EHsc "$TEST_APP_PATH" /link "$PWD\googletest\build\lib\gtest.lib" "$PWD\googletest\build\lib\gtest_main.lib" /out:"$TEST_BUILD_OUTPUT\task5.exe"
+        $TEST_APP_PATH = "tests/SWtask5/SWtask5/test.cpp"
+        $TEST_BUILD_OUTPUT = "Build/task5_output"
+
+        # Compile the test executable
+        g++ -I"/usr/local/include" -o "$TEST_BUILD_OUTPUT/task5.exe" "$TEST_APP_PATH" -L"/usr/local/lib" -lgtest -lgtest_main -pthread
 
     - name: Run tests and save output to XML
       run: |
         cd Build/task5_output
-        .\task5.exe --gtest_output=xml:../test_results.xml  
+        ./task5.exe --gtest_output=xml:../test_results.xml  
 
     - name: Upload test results as artifact
       uses: actions/upload-artifact@v4
@@ -45,4 +48,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: task5_exe
-        path: Build\task5_output\task5.exe
+        path: Build/task5_output/task5.exe
