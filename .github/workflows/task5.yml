@@ -10,31 +10,26 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up MSVC
-      uses: actions/setup-msbuild@v1
+    - name: Set up MSVC (Microsoft Visual C++)
+      uses: actions/setup-msvc@v1
+      with:
+        vs-version: 'latest' 
 
     - name: Install Google Test
       run: |
-        # Clone Google Test repository
         git clone --branch release-1.11.0 https://github.com/google/googletest.git
         cd googletest
-        # Set up Google Test using CMake
-        cmake -G "Visual Studio 16 2019" .
-        cmake --build . --config Release
-        cmake --install . --prefix "$PWD/installed"
+        cmake .
+        cmake --build . --target install
         cd ..
-
+        
     - name: Build tests using MSVC
       run: |
-        # Set the path to your test source and output directories
         $TEST_APP_PATH = "tests\SWtask5\SWtask5\test.cpp"
         $TEST_BUILD_OUTPUT = "Build\task5_output"
-
-        # Set up the environment for MSVC
-        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
-
-        # Compile the test executable using MSVC
-        cl /EHsc /I"$PWD\googletest\googletest\include" /I"$PWD\googletest\googletest" "$TEST_APP_PATH" /link /LIBPATH:"$PWD\googletest\installed\lib" gtest.lib gtest_main.lib
+        
+    
+        cl /I"$PWD\googletest\googletest\include" /I"$PWD\googletest\googletest" /EHsc "$TEST_APP_PATH" /link "$PWD\googletest\build\lib\gtest.lib" "$PWD\googletest\build\lib\gtest_main.lib" /out:"$TEST_BUILD_OUTPUT\task5.exe"
 
     - name: Run tests and save output to XML
       run: |
