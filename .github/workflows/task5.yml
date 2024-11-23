@@ -4,33 +4,30 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Install dependencies
+    - name: Set up MinGW
       run: |
-        sudo apt update
-        sudo apt install -y g++ cmake libgtest-dev
+        choco install mingw
 
     - name: Install Google Test
       run: |
-        # Download and build Google Test from source
-        cd ~
         git clone --branch release-1.11.0 https://github.com/google/googletest.git
         cd googletest
-        cmake .
-        sudo cmake --build . --target install
-
-    - name: Build tests using GCC
+        cmake -G "MinGW Makefiles" .
+        cmake --build . --target install
+        cd ..
+        
+    - name: Build tests
       run: |
-        $TEST_APP_PATH = "tests/SWtask5/SWtask5/test.cpp"
-        $TEST_BUILD_OUTPUT = "Build/task5_output"
+        $TEST_APP_PATH = "tests\SWtask5\SWtask5\test.cpp"
+        $TEST_BUILD_OUTPUT = "Build\task5_output"
 
-        # Compile the test executable
-        g++ -I"/usr/local/include" -o "$TEST_BUILD_OUTPUT/task5.exe" "$TEST_APP_PATH" -L"/usr/local/lib" -lgtest -lgtest_main -pthread
+        g++ -I"$PWD\googletest\googletest\include" -I"$PWD\googletest\googletest" -o "$TEST_BUILD_OUTPUT\task5.exe" "$TEST_APP_PATH" -L"$PWD\googletest\build\lib" -lgtest -lgtest_main -pthread
 
     - name: Run tests and save output to XML
       run: |
@@ -48,4 +45,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: task5_exe
-        path: Build/task5_output/task5.exe
+        path: Build\task5_output\task5.exe
