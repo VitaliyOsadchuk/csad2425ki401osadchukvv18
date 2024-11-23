@@ -29,7 +29,7 @@ jobs:
         $TEST_APP_PATH = "tests\SWtask5\SWtask5\test.cpp"
         $TEST_BUILD_OUTPUT = "Build\task5_output"
 
-        g++ -I"$PWD\googletest\googletest\include" -I"$PWD\googletest\googletest" -I"$PWD\tests\SWtask5\SWtask5" -o "$TEST_BUILD_OUTPUT\task5.exe" "$TEST_APP_PATH" -L"$PWD\googletest\build\lib" -lgtest -lgtest_main -pthread
+        g++ -I"$PWD\googletest\googletest\include" -I"$PWD\googletest\googletest" -std=c++17 -o "$TEST_BUILD_OUTPUT\task5.exe" "$TEST_APP_PATH" -L"$PWD\googletest\build\lib" -lgtest -lgtest_main -pthread
 
     - name: Run tests and save output to XML
       run: |
