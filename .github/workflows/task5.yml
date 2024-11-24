@@ -10,12 +10,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Download compiled exe artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: task5_exe
-        path: ./tests/SWtask5/x64/Debug
-
     - name: Run tests
       run: |
         cd tests/SWtask5/x64/Debug
@@ -25,4 +19,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: test-results
-        path: Build/test_results.xml
+        path: tests/SWtask5/x64/Debug/test_results.xml
