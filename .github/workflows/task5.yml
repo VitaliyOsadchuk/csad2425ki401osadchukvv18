@@ -14,12 +14,12 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: task5_exe
-        path: ./tests/SWtask5/x64/Debug
+        path: tests/SWtask5/x64/Debug
 
     - name: Run tests and save output to file
       run: |
         cd tests/SWtask5/x64/Debug
-        ./SWtask5.exe > test_output.txt
+        SWtask5.exe > test_output.txt
 
     - name: Upload test results as artifact
       uses: actions/upload-artifact@v4
