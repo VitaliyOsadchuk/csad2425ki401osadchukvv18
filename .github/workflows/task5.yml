@@ -1,0 +1,19 @@
+
+name: Test Client Application
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Run tests
+      run: |
+        cd tests/SWtask5/x64/Debug
+        ./SWtask5.exe --gtest_output=xml:../test_results.xml
+        
+  

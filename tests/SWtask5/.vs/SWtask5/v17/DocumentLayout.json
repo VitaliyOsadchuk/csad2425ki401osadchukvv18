@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\MSI\\Desktop\\SWtask5\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{38938CDA-11A8-4CDD-A022-4BF27840CD20}|SWtask5\\SWtask5.vcxproj|C:\\Users\\MSI\\Desktop\\SWtask5\\SWtask5\\test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{38938CDA-11A8-4CDD-A022-4BF27840CD20}|SWtask5\\SWtask5.vcxproj|solutionrelative:SWtask5\\test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38938CDA-11A8-4CDD-A022-4BF27840CD20}|SWtask5\\SWtask5.vcxproj|C:\\Users\\MSI\\Desktop\\SWtask5\\SWtask5\\functions.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{38938CDA-11A8-4CDD-A022-4BF27840CD20}|SWtask5\\SWtask5.vcxproj|solutionrelative:SWtask5\\functions.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38938CDA-11A8-4CDD-A022-4BF27840CD20}|SWtask5\\SWtask5.vcxproj|C:\\Users\\MSI\\Desktop\\SWtask5\\SWtask5\\test.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{38938CDA-11A8-4CDD-A022-4BF27840CD20}|SWtask5\\SWtask5.vcxproj|solutionrelative:SWtask5\\test.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "functions.cpp",
+              "DocumentMoniker": "C:\\Users\\MSI\\Desktop\\SWtask5\\SWtask5\\functions.cpp",
+              "RelativeDocumentMoniker": "SWtask5\\functions.cpp",
+              "ToolTip": "C:\\Users\\MSI\\Desktop\\SWtask5\\SWtask5\\functions.cpp",
+              "RelativeToolTip": "SWtask5\\functions.cpp",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAACIAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-23T21:48:20.015Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "test.h",
+              "DocumentMoniker": "C:\\Users\\MSI\\Desktop\\SWtask5\\SWtask5\\test.h",
+              "RelativeDocumentMoniker": "SWtask5\\test.h",
+              "ToolTip": "C:\\Users\\MSI\\Desktop\\SWtask5\\SWtask5\\test.h",
+              "RelativeToolTip": "SWtask5\\test.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-23T21:18:59.079Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "test.cpp",
+              "DocumentMoniker": "C:\\Users\\MSI\\Desktop\\SWtask5\\SWtask5\\test.cpp",
+              "RelativeDocumentMoniker": "SWtask5\\test.cpp",
+              "ToolTip": "C:\\Users\\MSI\\Desktop\\SWtask5\\SWtask5\\test.cpp",
+              "RelativeToolTip": "SWtask5\\test.cpp",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAAD4AAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-23T20:54:50.962Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

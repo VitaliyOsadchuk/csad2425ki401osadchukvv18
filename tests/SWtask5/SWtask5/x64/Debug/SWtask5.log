@@ -1,0 +1,7 @@
+﻿  test.cpp
+C:\Users\MSI\Desktop\SWtask5\SWtask5\test.cpp(13,9): warning C4005: 'UNICODE': macro redefinition
+  (compiling source file '/test.cpp')
+      C:\Users\MSI\Desktop\SWtask5\SWtask5\test.cpp(13,9):
+      'UNICODE' previously declared on the command line
+  
+  SWtask5.vcxproj -> C:\Users\MSI\Desktop\SWtask5\x64\Debug\SWtask5.exe
